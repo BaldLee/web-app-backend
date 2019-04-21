@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import sjtu.webapplication.ebook.entity.Book;
 import sjtu.webapplication.ebook.repository.BookRepository;
 
-
 @Service
 @Transactional
 public class BookService {
