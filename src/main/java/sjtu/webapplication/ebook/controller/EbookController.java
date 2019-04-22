@@ -1,32 +1,17 @@
 package sjtu.webapplication.ebook.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import org.aspectj.apache.bcel.classfile.Module;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
-import sjtu.webapplication.ebook.entity.Book;
-import sjtu.webapplication.ebook.entity.User;
-import sjtu.webapplication.ebook.service.BookService;
-import sjtu.webapplication.ebook.service.UserService;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import sjtu.webapplication.ebook.bookInfo.BookInfoGet;
 
 @RestController
-@RequestMapping("/ebook")
+@EnableAutoConfiguration
 public class EbookController {
-
-    @Autowired
-    private BookService bookService;
-    @Autowired
-    private UserService userService;
-
     @RequestMapping("/")
-    public String index() {
+    public String index(){
         String output = "/";
         return output;
     }
@@ -88,5 +73,6 @@ public class EbookController {
     @RequestMapping(value = "/users/add", method = RequestMethod.POST, consumes = "application/json")
     public String usersAdd(@RequestBody User user) {
         return userService.updateUser(user);
+
     }
 }
