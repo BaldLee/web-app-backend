@@ -17,4 +17,8 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    @Transactional
+    public Book updateBook(Book book) {
+        return bookRepository.save(book);
+    }
 }
