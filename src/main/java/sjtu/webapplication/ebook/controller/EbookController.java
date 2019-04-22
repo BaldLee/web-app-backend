@@ -52,12 +52,6 @@ public class EbookController {
         return JSON.toJSONString(result);
     }
 
-//    @CrossOrigin
-//    @RequestMapping(value="/test",method = RequestMethod.POST,consumes = "application/json")
-//    public String test(@RequestBody User user){
-//        return user.getUsername() + ' ' + user.getPassword();
-//    }
-
     @CrossOrigin
     @RequestMapping(value = "/books/update", method = RequestMethod.POST, consumes = "application/json")
     public String booksUpdate(@RequestBody Book book) {
