@@ -33,7 +33,7 @@ public class EbookController {
     @CrossOrigin
     @RequestMapping(value = "/books/getall", method = RequestMethod.POST, consumes = "application/json")
     public String books() {
-        return JSON.toJSONString(bookService.getAll().iterator());
+        return bookService.getAll();
     }
 
     @CrossOrigin
@@ -45,16 +45,28 @@ public class EbookController {
         return JSON.toJSONString(result);
     }
 
-    @CrossOrigin
-    @RequestMapping(value="/test",method = RequestMethod.POST,consumes = "application/json")
-    public String test(@RequestBody User user){
-        return user.getUsername() + ' ' + user.getPassword();
-    }
+//    @CrossOrigin
+//    @RequestMapping(value="/test",method = RequestMethod.POST,consumes = "application/json")
+//    public String test(@RequestBody User user){
+//        return user.getUsername() + ' ' + user.getPassword();
+//    }
 
     @CrossOrigin
     @RequestMapping(value = "/books/update",method = RequestMethod.POST,consumes = "application/json")
     public String booksUpdate(@RequestBody Book book){
-        Book result = bookService.updateBook(book);
-        return JSON.toJSONString(result);
+        return bookService.updateBook(book);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/books/delete",method = RequestMethod.POST,consumes = "application/json")
+    public String booksDelete(@RequestBody Book book){
+        bookService.deleteBook(book);
+        return "delete done";
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/books/add",method = RequestMethod.POST,consumes = "application/json")
+    public String booksadd(@RequestBody Book book){
+        return bookService.updateBook(book);
     }
 }
