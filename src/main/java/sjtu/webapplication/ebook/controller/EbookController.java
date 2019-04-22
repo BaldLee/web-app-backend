@@ -1,72 +1,25 @@
 package sjtu.webapplication.ebook.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
-import sjtu.webapplication.ebook.entity.Book;
-import sjtu.webapplication.ebook.entity.User;
-import sjtu.webapplication.ebook.service.BookService;
-import sjtu.webapplication.ebook.service.UserService;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import sjtu.webapplication.ebook.bookInfo.BookInfoGet;
 
 @RestController
-@RequestMapping("/ebook")
+@EnableAutoConfiguration
 public class EbookController {
-
-    @Autowired
-    private BookService bookService;
-    @Autowired
-    private UserService userService;
-
     @RequestMapping("/")
-    public String index() {
+    public String index(){
         String output = "/";
         return output;
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/books/getall", method = RequestMethod.POST, consumes = "application/json")
-    public String books() {
-        return bookService.getAll();
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "/user/check",method = RequestMethod.POST,consumes = "application/json")
-    public String userCheck(@RequestBody User user){
-        String username=user.getUsername();
-        String password=user.getPassword();
-        int result = userService.logincheck(username,password);
-        return JSON.toJSONString(result);
-    }
-
-//    @CrossOrigin
-//    @RequestMapping(value="/test",method = RequestMethod.POST,consumes = "application/json")
-//    public String test(@RequestBody User user){
-//        return user.getUsername() + ' ' + user.getPassword();
-//    }
-
-    @CrossOrigin
-    @RequestMapping(value = "/books/update",method = RequestMethod.POST,consumes = "application/json")
-    public String booksUpdate(@RequestBody Book book){
-        return bookService.updateBook(book);
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "/books/delete",method = RequestMethod.POST,consumes = "application/json")
-    public String booksDelete(@RequestBody Book book){
-        bookService.deleteBook(book);
-        return "delete done";
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "/books/add",method = RequestMethod.POST,consumes = "application/json")
-    public String booksadd(@RequestBody Book book){
-        return bookService.updateBook(book);
+    @RequestMapping(value="/books",method = RequestMethod.POST,consumes = "Application/json")
+    public String books(){
+        BookInfoGet tmp = new BookInfoGet();
+        return tmp.get();
     }
 }
