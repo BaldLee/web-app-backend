@@ -1,5 +1,6 @@
 package sjtu.webapplication.ebook.service;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +17,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Iterable<User> getAll() {
-        return userRepository.findAll();
+    public String getAll() {
+        return JSON.toJSONString(userRepository.findAll());
     }
 
     public int logincheck(String username, String password) {
@@ -36,7 +37,20 @@ public class UserService {
         return -1;
     }
 
-    public List<User> findTest(String username){
-        return userRepository.findByUsername(username);
+    @Transactional
+    public String updateUser(User user) {
+        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+        return JSON.toJSONString(userRepository.save(user));
     }
+
+    @Transactional
+    public void deleteUser(User user){
+        userRepository.delete(user);
+//        book.setStatus(1);
+//        bookRepository.save(book);
+    }
+
+//    public List<User> findTest(String username) {
+//        return userRepository.findByUsername(username);
+//    }
 }
