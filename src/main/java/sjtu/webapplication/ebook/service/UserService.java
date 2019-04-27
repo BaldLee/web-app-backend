@@ -28,6 +28,7 @@ public class UserService {
 
         String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
         for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getStatus() == 2) return 2;
             if (userList.get(i).getStatus() == 1) {
                 if (!userList.get(i).getPassword().equals(md5Password)) continue;
                 if (userList.get(i).getRole() == 0) return 0;

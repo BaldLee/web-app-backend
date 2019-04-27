@@ -31,6 +31,8 @@ public class Book {
     //    @Column(name = "status")
     private int status;
 
+    private String detail;
+
     public Book() {
     }
 
@@ -66,6 +68,10 @@ public class Book {
         this.status = status;
     }
 
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
     public int getId() {
         return id;
     }
@@ -96,5 +102,9 @@ public class Book {
 
     public int getStatus() {
         return status;
+    }
+
+    public String getDetail() {
+        return detail;
     }
 }

@@ -14,6 +14,7 @@ public class User {
     private String password;
     private int status;
     private int role;
+    private String email;
 
     public User() {
     }
@@ -38,8 +39,16 @@ public class User {
         this.role = role;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getUsername() {
