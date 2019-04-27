@@ -3,23 +3,23 @@ package sjtu.webapplication.ebook.entity;
 import java.util.List;
 
 public class OrderAddRequest {
-    private List<Integer> idList;
-    private int userId;
+    private List<Integer> cartId;
+    private String ownerName;
     public OrderAddRequest(){}
 
-    public List<Integer> getIdList() {
-        return idList;
+    public List<Integer> getCartId() {
+        return cartId;
     }
 
-    public int getUserid() {
-        return userId;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setIdList(List<Integer> idList) {
-        this.idList = idList;
+    public void setCartId(List<Integer> idList) {
+        this.cartId = idList;
     }
 
-    public void setUserid(int userid) {
-        this.userId = userid;
+    public void setOwnerName(String name) {
+        this.ownerName = name;
     }
 }
