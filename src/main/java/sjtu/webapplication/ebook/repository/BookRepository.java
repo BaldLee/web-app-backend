@@ -11,4 +11,5 @@ import java.util.List;
 public interface BookRepository extends CrudRepository<Book, Integer> {
 //    @Query("select * from books u where u.status = 0")
 //    List<Book> findAllExistBook();
+    List<Book> findById(int id);
 }
