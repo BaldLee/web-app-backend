@@ -8,8 +8,11 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 import sjtu.webapplication.ebook.entity.Book;
+import sjtu.webapplication.ebook.entity.OrderAddRequest;
 import sjtu.webapplication.ebook.entity.User;
+import sjtu.webapplication.ebook.repository.OrderRepository;
 import sjtu.webapplication.ebook.service.BookService;
+import sjtu.webapplication.ebook.service.OrderService;
 import sjtu.webapplication.ebook.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +27,8 @@ public class EbookController {
     private BookService bookService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping("/")
     public String index() {
@@ -78,6 +83,12 @@ public class EbookController {
     }
 
     @CrossOrigin
+    @RequestMapping(value="/books/findbyid",method = RequestMethod.POST,consumes = "application/json")
+    public  String booksFindByID(@RequestBody int id){
+        return bookService.findByID(id);
+    }
+
+    @CrossOrigin
     @RequestMapping(value = "/users/update", method = RequestMethod.POST, consumes = "application/json")
     public String usersUpdate(@RequestBody User user) {
         return userService.updateUser(user);
@@ -94,5 +105,11 @@ public class EbookController {
     @RequestMapping(value = "/users/add", method = RequestMethod.POST, consumes = "application/json")
     public String usersAdd(@RequestBody User user) {
         return userService.updateUser(user);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/orders/add",method = RequestMethod.POST,consumes = "application/json")
+    public String ordersAdd(@RequestBody OrderAddRequest orderAddRequest){
+        return orderService.addOrder(orderAddRequest);
     }
 }
