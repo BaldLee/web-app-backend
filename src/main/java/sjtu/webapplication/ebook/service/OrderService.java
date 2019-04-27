@@ -3,6 +3,7 @@ package sjtu.webapplication.ebook.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sjtu.webapplication.ebook.entity.Book;
 import sjtu.webapplication.ebook.entity.Order;
 import sjtu.webapplication.ebook.entity.OrderAddRequest;
 import sjtu.webapplication.ebook.entity.OrderItem;
@@ -37,14 +38,19 @@ public class OrderService {
         NewOrder.setStatus(0);
         NewOrder = orderRepository.save(NewOrder);
 
-//        for (int i = 0; i < orderAddRequest.getCartId().size(); i++) {
-//            OrderItem NewOrderItem = new OrderItem();
-//            int id = orderAddRequest.getCartId().get(i);
-//            NewOrderItem.setItem(id);
-//            NewOrderItem.setOrder_id(NewOrder.getId());
-//            NewOrderItem.setPrice(bookRepository.findById(id).get(0).getPrice());
-//            orderItemRepository.save(NewOrderItem);
-//        }
+        for (int i = 0; i < orderAddRequest.getCartId().size(); i++) {
+            OrderItem NewOrderItem = new OrderItem();
+            int id = orderAddRequest.getCartId().get(i);
+            Book newBook = bookRepository.findById(id).get(0);
+            NewOrderItem.setItem(id);
+            NewOrderItem.setOrder_id(NewOrder.getId());
+            NewOrderItem.setPrice(newBook.getPrice());
+            //book amount --
+            newBook.setAmount(newBook.getAmount() - 1);
+            bookRepository.save(newBook);
+
+            orderItemRepository.save(NewOrderItem);
+        }
 
         return "order add done";
     }

@@ -1,13 +1,16 @@
 package sjtu.webapplication.ebook.entity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class OrderAddRequest {
-    private List<Integer> cartId;
+    private ArrayList<Integer> cartId;
     private String ownerName;
-    public OrderAddRequest(){}
 
-    public List<Integer> getCartId() {
+    public OrderAddRequest() {
+    }
+
+
+    public ArrayList<Integer> getCartId() {
         return cartId;
     }
 
@@ -15,7 +18,8 @@ public class OrderAddRequest {
         return ownerName;
     }
 
-    public void setCartId(List<Integer> idList) {
+
+    public void setCartId(ArrayList<Integer> idList) {
         this.cartId = idList;
     }
 

@@ -16,6 +16,7 @@ import sjtu.webapplication.ebook.service.OrderService;
 import sjtu.webapplication.ebook.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -111,5 +112,17 @@ public class EbookController {
     @RequestMapping(value = "/orders/add",method = RequestMethod.POST,consumes = "application/json")
     public String ordersAdd(@RequestBody OrderAddRequest orderAddRequest){
         return orderService.addOrder(orderAddRequest);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/orders/test",method = RequestMethod.POST,consumes = "application/json")
+    public OrderAddRequest test(){
+        OrderAddRequest s=new OrderAddRequest();
+        ArrayList<Integer> a=new ArrayList<Integer>();
+        a.add(1);
+        a.add(2);
+        s.setCartId(a);
+        s.setOwnerName("aaa");
+        return s;
     }
 }
