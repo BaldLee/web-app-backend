@@ -1,5 +1,6 @@
 package sjtu.webapplication.ebook.service;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,17 +42,23 @@ public class OrderService {
         for (int i = 0; i < orderAddRequest.getCartId().size(); i++) {
             OrderItem NewOrderItem = new OrderItem();
             int id = orderAddRequest.getCartId().get(i);
+            int amount = orderAddRequest.getCartAmount().get(i);
             Book newBook = bookRepository.findById(id).get(0);
             NewOrderItem.setItem(id);
-            NewOrderItem.setOrder_id(NewOrder.getId());
+            NewOrderItem.setOrderid(NewOrder.getId());
             NewOrderItem.setPrice(newBook.getPrice());
+            NewOrderItem.setAmount(amount);
             //book amount --
-            newBook.setAmount(newBook.getAmount() - 1);
+            newBook.setAmount(newBook.getAmount() - amount);
             bookRepository.save(newBook);
 
             orderItemRepository.save(NewOrderItem);
         }
 
         return "order add done";
+    }
+
+    public String getAll(){
+        return JSON.toJSONString(orderRepository.findAll().iterator());
     }
 }

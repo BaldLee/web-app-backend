@@ -84,8 +84,8 @@ public class EbookController {
     }
 
     @CrossOrigin
-    @RequestMapping(value="/books/findbyid",method = RequestMethod.POST,consumes = "application/json")
-    public  String booksFindByID(@RequestBody int id){
+    @RequestMapping(value = "/books/findbyid", method = RequestMethod.POST, consumes = "application/json")
+    public String booksFindByID(@RequestBody int id) {
         return bookService.findByID(id);
     }
 
@@ -109,20 +109,26 @@ public class EbookController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/orders/add",method = RequestMethod.POST,consumes = "application/json")
-    public String ordersAdd(@RequestBody OrderAddRequest orderAddRequest){
+    @RequestMapping(value = "/orders/add", method = RequestMethod.POST, consumes = "application/json")
+    public String ordersAdd(@RequestBody OrderAddRequest orderAddRequest) {
         return orderService.addOrder(orderAddRequest);
     }
 
+//    @CrossOrigin
+//    @RequestMapping(value = "/orders/test",method = RequestMethod.POST,consumes = "application/json")
+//    public OrderAddRequest test(){
+//        OrderAddRequest s=new OrderAddRequest();
+//        ArrayList<Integer> a=new ArrayList<Integer>();
+//        a.add(1);
+//        a.add(2);
+//        s.setCartId(a);
+//        s.setOwnerName("aaa");
+//        return s;
+//    }
+
     @CrossOrigin
-    @RequestMapping(value = "/orders/test",method = RequestMethod.POST,consumes = "application/json")
-    public OrderAddRequest test(){
-        OrderAddRequest s=new OrderAddRequest();
-        ArrayList<Integer> a=new ArrayList<Integer>();
-        a.add(1);
-        a.add(2);
-        s.setCartId(a);
-        s.setOwnerName("aaa");
-        return s;
+    @RequestMapping(value = "orders/getall", method = RequestMethod.POST, consumes = "application/json")
+    public String ordersGetAll() {
+        return orderService.getAll();
     }
 }

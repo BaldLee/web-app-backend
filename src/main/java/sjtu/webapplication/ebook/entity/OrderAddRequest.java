@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class OrderAddRequest {
     private ArrayList<Integer> cartId;
+    private ArrayList<Integer> cartAmount;
     private String ownerName;
 
     public OrderAddRequest() {
@@ -18,6 +19,9 @@ public class OrderAddRequest {
         return ownerName;
     }
 
+    public ArrayList<Integer> getCartAmount() {
+        return cartAmount;
+    }
 
     public void setCartId(ArrayList<Integer> idList) {
         this.cartId = idList;
@@ -25,5 +29,9 @@ public class OrderAddRequest {
 
     public void setOwnerName(String name) {
         this.ownerName = name;
+    }
+
+    public void setCartAmount(ArrayList<Integer> cartAmount) {
+        this.cartAmount = cartAmount;
     }
 }
