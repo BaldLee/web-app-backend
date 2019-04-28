@@ -1,20 +1,19 @@
 package sjtu.webapplication.ebook.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 import sjtu.webapplication.ebook.entity.Book;
 import sjtu.webapplication.ebook.entity.OrderAddRequest;
+import sjtu.webapplication.ebook.entity.OrderStatisticRequest;
 import sjtu.webapplication.ebook.entity.User;
-import sjtu.webapplication.ebook.repository.OrderRepository;
 import sjtu.webapplication.ebook.service.BookService;
+import sjtu.webapplication.ebook.service.OrderItemService;
 import sjtu.webapplication.ebook.service.OrderService;
 import sjtu.webapplication.ebook.service.UserService;
 
+import javax.persistence.PreUpdate;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +29,8 @@ public class EbookController {
     private UserService userService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderItemService orderItemService;
 
     @RequestMapping("/")
     public String index() {
@@ -84,8 +85,8 @@ public class EbookController {
     }
 
     @CrossOrigin
-    @RequestMapping(value="/books/findbyid",method = RequestMethod.POST,consumes = "application/json")
-    public  String booksFindByID(@RequestBody int id){
+    @RequestMapping(value = "/books/findbyid", method = RequestMethod.POST, consumes = "application/json")
+    public String booksFindByID(@RequestBody int id) {
         return bookService.findByID(id);
     }
 
@@ -109,20 +110,51 @@ public class EbookController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/orders/add",method = RequestMethod.POST,consumes = "application/json")
-    public String ordersAdd(@RequestBody OrderAddRequest orderAddRequest){
+    @RequestMapping(value = "/orders/add", method = RequestMethod.POST, consumes = "application/json")
+    public String ordersAdd(@RequestBody OrderAddRequest orderAddRequest) {
         return orderService.addOrder(orderAddRequest);
     }
 
+//    @CrossOrigin
+//    @RequestMapping(value = "/orders/test",method = RequestMethod.POST,consumes = "application/json")
+//    public OrderAddRequest test(){
+//        OrderAddRequest s=new OrderAddRequest();
+//        ArrayList<Integer> a=new ArrayList<Integer>();
+//        a.add(1);
+//        a.add(2);
+//        s.setCartId(a);
+//        s.setOwnerName("aaa");
+//        return s;
+//    }
+
     @CrossOrigin
-    @RequestMapping(value = "/orders/test",method = RequestMethod.POST,consumes = "application/json")
-    public OrderAddRequest test(){
-        OrderAddRequest s=new OrderAddRequest();
-        ArrayList<Integer> a=new ArrayList<Integer>();
-        a.add(1);
-        a.add(2);
-        s.setCartId(a);
-        s.setOwnerName("aaa");
-        return s;
+    @RequestMapping(value = "orders/getall", method = RequestMethod.POST, consumes = "application/json")
+    public String ordersGetAll() {
+        return orderService.getAll();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "orders/findbyusername", method = RequestMethod.POST, consumes = "application/json")
+    public String findOrderByUsername(@RequestBody String owner) {
+        return orderService.findByUsername(owner);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "orders/addbytime", method = RequestMethod.POST, consumes = "application/json")
+    public String addMoneyByTime(@RequestBody OrderStatisticRequest orderStatisticRequest) {
+        return orderService.addByTime(orderStatisticRequest.getStart(), orderStatisticRequest.getEnd(), orderStatisticRequest.getUsername());
+    }
+
+
+    @CrossOrigin
+    @RequestMapping(value = "orderitems/findbyorderid", method = RequestMethod.POST, consumes = "application/json")
+    public String findOrderItemByOrderId(@RequestBody Integer orderid) {
+        return orderItemService.orderItemsFindByOrderId(orderid);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "orderitems/findbooksbyorderid", method = RequestMethod.POST, consumes = "application/json")
+    public String findBooksByOrderId(@RequestBody Integer orderid) {
+        return orderItemService.findBooksByOrderId(orderid);
     }
 }

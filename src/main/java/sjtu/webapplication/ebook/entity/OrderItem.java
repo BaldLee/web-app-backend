@@ -8,9 +8,10 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int order_id;
+    private int orderid;
     private int item;
     private double price;
+    private int amount;
 
     public OrderItem() {
     }
@@ -23,20 +24,24 @@ public class OrderItem {
         return item;
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public int getOrderid() {
+        return orderid;
     }
 
     public double getPrice() {
         return price;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public void setOrderid(int orderid) {
+        this.orderid = orderid;
     }
 
     public void setItem(int item) {
@@ -45,5 +50,9 @@ public class OrderItem {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
