@@ -36,4 +36,9 @@ public class BookService {
 //        book.setStatus(1);
 //        bookRepository.save(book);
     }
+
+    @Transactional
+    public String findByID(int id){
+        return JSON.toJSONString(bookRepository.findById(id).get(0));
+    }
 }
