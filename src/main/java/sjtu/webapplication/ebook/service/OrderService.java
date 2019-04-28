@@ -68,4 +68,17 @@ public class OrderService {
         List<Order> orders = orderRepository.findByOwner(userid);
         return JSON.toJSONString(orders);
     }
+
+    public String addByTime(Timestamp start, Timestamp end, String username) {
+        int id = userRepository.findByUsername(username).get(0).getId();
+        List<Order> orders = orderRepository.findByTime(start, end, id);
+        double money = 0;
+        for (int i = 0; i < orders.size(); i++) {
+            List<OrderItem> orderItems = orderItemRepository.findByOrderid(orders.get(i).getId());
+            for (int j = 0; j < orderItems.size(); j++) {
+                money += orderItems.get(j).getAmount() * orderItems.get(j).getPrice();
+            }
+        }
+        return JSON.toJSONString(money);
+    }
 }

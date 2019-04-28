@@ -6,6 +6,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import sjtu.webapplication.ebook.entity.Book;
 import sjtu.webapplication.ebook.entity.OrderAddRequest;
+import sjtu.webapplication.ebook.entity.OrderStatisticRequest;
 import sjtu.webapplication.ebook.entity.User;
 import sjtu.webapplication.ebook.service.BookService;
 import sjtu.webapplication.ebook.service.OrderItemService;
@@ -137,6 +138,13 @@ public class EbookController {
     public String findOrderByUsername(@RequestBody String owner) {
         return orderService.findByUsername(owner);
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "orders/addbytime", method = RequestMethod.POST, consumes = "application/json")
+    public String addMoneyByTime(@RequestBody OrderStatisticRequest orderStatisticRequest) {
+        return orderService.addByTime(orderStatisticRequest.getStart(), orderStatisticRequest.getEnd(), orderStatisticRequest.getUsername());
+    }
+
 
     @CrossOrigin
     @RequestMapping(value = "orderitems/findbyorderid", method = RequestMethod.POST, consumes = "application/json")
