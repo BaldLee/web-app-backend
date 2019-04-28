@@ -15,6 +15,7 @@ import sjtu.webapplication.ebook.repository.UserRepository;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 @Transactional
@@ -58,7 +59,13 @@ public class OrderService {
         return "order add done";
     }
 
-    public String getAll(){
+    public String getAll() {
         return JSON.toJSONString(orderRepository.findAll().iterator());
+    }
+
+    public String findByUsername(String username) {
+        int userid = userRepository.findByUsername(username).get(0).getId();
+        List<Order> orders = orderRepository.findByOwner(userid);
+        return JSON.toJSONString(orders);
     }
 }

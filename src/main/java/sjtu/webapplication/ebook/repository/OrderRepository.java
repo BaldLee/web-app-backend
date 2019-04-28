@@ -4,6 +4,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import sjtu.webapplication.ebook.entity.Order;
 
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Integer> {
+    List<Order> findByOwner(int owner);
 }
