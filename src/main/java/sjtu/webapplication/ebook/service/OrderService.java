@@ -50,6 +50,10 @@ public class OrderService {
             NewOrderItem.setPrice(newBook.getPrice());
             NewOrderItem.setAmount(amount);
             //book amount --
+            if (newBook.getAmount() < amount) {
+                orderRepository.delete(NewOrder);
+                return "too much:" + newBook.getName();
+            }
             newBook.setAmount(newBook.getAmount() - amount);
             bookRepository.save(newBook);
 
