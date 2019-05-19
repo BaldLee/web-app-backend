@@ -1,13 +1,14 @@
-package sjtu.webapplication.ebook.repository;
+package sjtu.webapplication.ebook.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import sjtu.webapplication.ebook.entity.User;
 
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
-
+public interface UserDao {
     List<User> findByUsername(String Username);
+    List<User> findAll();
+    User save(User user);
+    void delete(User user);
 }
