@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int logincheck(String username, String password) {
+    public int loginCheck(String username, String password) {
         List<User> userList = userDao.findByUsername(username);
 
         if (userList.isEmpty()) return -1;
@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void deleteUser(User user) {
-        userDao.delete(user);
+    public void deleteUser(int id) {
+        userDao.delete(id);
 //        book.setStatus(1);
 //        bookRepository.save(book);
     }

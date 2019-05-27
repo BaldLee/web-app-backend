@@ -25,8 +25,8 @@ public class BookController {
 
     @CrossOrigin
     @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = "application/json")
-    public String booksDelete(@RequestBody Book book) {
-        bookService.deleteBook(book);
+    public String booksDelete(@RequestBody int bookId) {
+        bookService.deleteBook(bookId);
         return "book delete done";
     }
 

@@ -28,8 +28,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public void deleteBook(Book book) {
-        bookDao.delete(book);
+    public void deleteBook(int id) {
+        bookDao.delete(id);
 //        book.setStatus(1);
 //        bookRepository.save(book);
     }

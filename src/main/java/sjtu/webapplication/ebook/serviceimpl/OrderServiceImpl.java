@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String getAll() {
-        return JSON.toJSONString(orderDao.findAll().iterator());
+        return JSON.toJSONString(orderDao.findAll());
     }
 
     @Override

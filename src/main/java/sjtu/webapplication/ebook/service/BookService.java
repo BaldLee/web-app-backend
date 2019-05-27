@@ -7,7 +7,7 @@ public interface BookService {
 
     String updateBook(Book book);
 
-    void deleteBook(Book book);
+    void deleteBook(int id);
 
     String findByID(int id);
 }

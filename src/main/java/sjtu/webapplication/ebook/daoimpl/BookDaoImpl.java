@@ -29,7 +29,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public void delete(Book book){
-        bookRepository.delete(book);
+    public void delete(int id){
+        bookRepository.deleteById(id);
     }
 }

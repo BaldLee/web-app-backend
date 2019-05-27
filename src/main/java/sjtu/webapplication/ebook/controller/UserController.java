@@ -23,7 +23,7 @@ public class UserController {
     public String userCheck(@RequestBody User user) {
         String username = user.getUsername();
         String password = user.getPassword();
-        int result = userService.logincheck(username, password);
+        int result = userService.loginCheck(username, password);
         return JSON.toJSONString(result);
     }
 
@@ -35,8 +35,8 @@ public class UserController {
 
     @CrossOrigin
     @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = "application/json")
-    public String usersDelete(@RequestBody User user) {
-        userService.deleteUser(user);
+    public String usersDelete(@RequestBody int userId) {
+        userService.deleteUser(userId);
         return "user delete done";
     }
 
