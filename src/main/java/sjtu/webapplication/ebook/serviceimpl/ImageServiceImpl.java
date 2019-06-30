@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import sjtu.webapplication.ebook.dao.BookDao;
 import sjtu.webapplication.ebook.dao.ImageDao;
+import sjtu.webapplication.ebook.entity.Book;
 import sjtu.webapplication.ebook.entity.UploadFile;
 import sjtu.webapplication.ebook.service.ImageService;
 
@@ -50,5 +52,30 @@ public class ImageServiceImpl implements ImageService {
             data = file.getContent().getData();
         }
         return data;
+    }
+
+    @Override
+    @Transactional
+    public String updateImage(String id, MultipartFile file) {
+        if (file.isEmpty())
+            return "file is null";
+
+        String result = null;
+        String fileName = file.getOriginalFilename();
+        try{
+            UploadFile uploadFile = new UploadFile();
+            uploadFile.setId(id);
+            uploadFile.setName(fileName);
+            uploadFile.setContent(new Binary(file.getBytes()));
+            uploadFile.setContentType(file.getContentType());
+            uploadFile.setSize(file.getSize());
+
+            imageDao.save(uploadFile);
+            result = "update success";
+        } catch (IOException e) {
+            e.printStackTrace();
+            result = "update fail";
+        }
+        return result;
     }
 }
