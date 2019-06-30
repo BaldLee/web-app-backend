@@ -29,6 +29,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Override
     public String findBooksByOrderId(int orderId) {
         List<OrderItem> items = orderItemDao.findByOrderId(orderId);
+
         List<OrderItemResponse> responseList = new ArrayList<OrderItemResponse>();
         for (int i = 0; i < items.size(); i++) {
             OrderItemResponse response = new OrderItemResponse();
