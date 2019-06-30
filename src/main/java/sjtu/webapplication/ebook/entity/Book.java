@@ -16,8 +16,8 @@ public class Book {
     //    @Column(name = "author")
     private String author;
 
-    //    @Column(name = "imgsrc")
-    private String imgsrc;
+    //    @Column(name = "imgId")
+    private String imgId;
 
     //    @Column(name = "isbn",unique = true)
     private String isbn;
@@ -48,9 +48,6 @@ public class Book {
         this.author = author;
     }
 
-    public void setImgsrc(String imgsrc) {
-        this.imgsrc = imgsrc;
-    }
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
@@ -84,9 +81,6 @@ public class Book {
         return author;
     }
 
-    public String getImgsrc() {
-        return imgsrc;
-    }
 
     public double getPrice() {
         return price;
@@ -106,5 +100,13 @@ public class Book {
 
     public String getDetail() {
         return detail;
+    }
+
+    public String getImgId() {
+        return imgId;
+    }
+
+    public void setImgId(String imgId) {
+        this.imgId = imgId;
     }
 }
