@@ -1,6 +1,7 @@
 package sjtu.webapplication.ebook.serviceimpl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,12 +83,18 @@ public class OrderServiceImpl implements OrderService {
         int id = userDao.findByUsername(username).get(0).getId();
         List<Order> orders = orderDao.findByTime(start, end, id);
         double money = 0;
+        int amount  =0;
         for (int i = 0; i < orders.size(); i++) {
             List<OrderItem> orderItems = orderItemDao.findByOrderId(orders.get(i).getId());
             for (int j = 0; j < orderItems.size(); j++) {
                 money += orderItems.get(j).getAmount() * orderItems.get(j).getPrice();
+                amount += orderItems.get(j).getAmount();
             }
         }
-        return JSON.toJSONString(money);
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("money",money);
+        jsonObject.put("amount",amount);
+
+        return jsonObject.toJSONString();
     }
 }
