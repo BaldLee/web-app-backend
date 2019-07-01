@@ -1,16 +1,16 @@
 package sjtu.webapplication.ebook.serviceimpl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sjtu.webapplication.ebook.dao.BookDao;
 import sjtu.webapplication.ebook.dao.OrderItemDao;
 import sjtu.webapplication.ebook.entity.OrderItem;
-import sjtu.webapplication.ebook.entity.OrderItemResponse;
 import sjtu.webapplication.ebook.service.OrderItemService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,14 +30,15 @@ public class OrderItemServiceImpl implements OrderItemService {
     public String findBooksByOrderId(int orderId) {
         List<OrderItem> items = orderItemDao.findByOrderId(orderId);
 
-        List<OrderItemResponse> responseList = new ArrayList<OrderItemResponse>();
+        JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < items.size(); i++) {
-            OrderItemResponse response = new OrderItemResponse();
-            response.setBook(bookDao.findById(items.get(i).getItem()));
-            response.setAmount(items.get(i).getAmount());
-            responseList.add(response);
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("Book",bookDao.findById(items.get(i).getItem()));
+            jsonObject.put("Amount",items.get(i).getAmount());
+            jsonArray.add(jsonObject);
         }
-        return JSON.toJSONString(responseList);
+        return jsonArray.toJSONString();
     }
 
 }

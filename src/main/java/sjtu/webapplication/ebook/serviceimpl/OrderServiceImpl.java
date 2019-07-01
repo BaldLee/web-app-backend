@@ -11,7 +11,6 @@ import sjtu.webapplication.ebook.dao.OrderItemDao;
 import sjtu.webapplication.ebook.dao.UserDao;
 import sjtu.webapplication.ebook.entity.Book;
 import sjtu.webapplication.ebook.entity.Order;
-import sjtu.webapplication.ebook.entity.OrderAddRequest;
 import sjtu.webapplication.ebook.entity.OrderItem;
 import sjtu.webapplication.ebook.service.OrderService;
 
@@ -33,20 +32,20 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public String addOrder(OrderAddRequest orderAddRequest) {
+    public String addOrder(List<Integer> cartId,List<Integer> cartAmount,String ownerName) {
         Calendar calendar = Calendar.getInstance();
         Timestamp time = new Timestamp(calendar.getTimeInMillis());
         Order NewOrder = new Order();
 //        System.out.print(userRepository.findByUsername(orderAddRequest.getOwnerName()).get(0).getId());
-        NewOrder.setOwner(userDao.findByUsername(orderAddRequest.getOwnerName()).get(0).getId());
+        NewOrder.setOwner(userDao.findByUsername(ownerName).get(0).getId());
         NewOrder.setTime(time);
         NewOrder.setStatus(0);
         NewOrder = orderDao.save(NewOrder);
 
-        for (int i = 0; i < orderAddRequest.getCartId().size(); i++) {
+        for (int i = 0; i < cartId.size(); i++) {
             OrderItem NewOrderItem = new OrderItem();
-            int id = orderAddRequest.getCartId().get(i);
-            int amount = orderAddRequest.getCartAmount().get(i);
+            int id = cartId.get(i);
+            int amount = cartAmount.get(i);
             Book newBook = bookDao.findById(id);
             NewOrderItem.setItem(id);
             NewOrderItem.setOrderId(NewOrder.getId());

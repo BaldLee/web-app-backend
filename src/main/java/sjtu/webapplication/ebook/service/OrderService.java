@@ -1,11 +1,10 @@
 package sjtu.webapplication.ebook.service;
 
-import sjtu.webapplication.ebook.entity.OrderAddRequest;
-
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface OrderService {
-    String addOrder(OrderAddRequest orderAddRequest);
+    String addOrder(List<Integer> cartId,List<Integer> cartAmount,String ownerName);
 
     String getAll();
 

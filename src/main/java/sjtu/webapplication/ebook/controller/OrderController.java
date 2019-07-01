@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sjtu.webapplication.ebook.entity.OrderAddRequest;
 import sjtu.webapplication.ebook.service.OrderService;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 @RequestMapping("/ebook/orders")
@@ -17,8 +17,14 @@ public class OrderController {
 
     @CrossOrigin
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
-    public String ordersAdd(@RequestBody OrderAddRequest orderAddRequest) {
-        return orderService.addOrder(orderAddRequest);
+    public String ordersAdd(@RequestBody String json) {
+        JSONObject jsonObject = JSON.parseObject(json);
+        String cartIdStr = jsonObject.getString("cartId");
+        String cartAmountStr = jsonObject.getString("cartAmount");
+        String ownerName = jsonObject.getString("ownerName");
+        List<Integer> cartId = JSONObject.parseArray(cartIdStr,Integer.class);
+        List<Integer> cartAmount = JSONObject.parseArray(cartAmountStr,Integer.class);
+        return orderService.addOrder(cartId,cartAmount,ownerName);
     }
 
     @CrossOrigin
