@@ -1,6 +1,7 @@
 package sjtu.webapplication.ebook.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "orderitem")
@@ -12,6 +13,15 @@ public class OrderItem {
     private int item;
     private double price;
     private int amount;
+    private Timestamp time;
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
 
     public OrderItem() {
     }

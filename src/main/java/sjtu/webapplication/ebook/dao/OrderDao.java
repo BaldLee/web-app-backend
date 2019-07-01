@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface OrderDao {
     List<Order> findAll();
+
     Order save(Order order);
+
     void delete(Order order);
+
     List<Order> findByOwner(int userid);
-    List<Order> findByTime(Timestamp start, Timestamp end, int owner);
+
+    List<Order> findByTimeAndUser(Timestamp start, Timestamp end, int owner);
 }

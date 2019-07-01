@@ -6,6 +6,7 @@ import sjtu.webapplication.ebook.dao.OrderItemDao;
 import sjtu.webapplication.ebook.entity.OrderItem;
 import sjtu.webapplication.ebook.repository.OrderItemRepository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -21,5 +22,10 @@ public class OrderItemDaoImpl implements OrderItemDao {
     @Override
     public List<OrderItem> findByOrderId(int orderId){
         return orderItemRepository.findByOrderId(orderId);
+    }
+
+    @Override
+    public List<OrderItem> findByTimeAndBook(Timestamp start, Timestamp end, int book) {
+        return orderItemRepository.findByTime(start,end,book);
     }
 }
