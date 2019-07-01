@@ -52,6 +52,7 @@ public class OrderServiceImpl implements OrderService {
             NewOrderItem.setOrderId(NewOrder.getId());
             NewOrderItem.setPrice(newBook.getPrice());
             NewOrderItem.setAmount(amount);
+            NewOrderItem.setTime(time);
             //book amount --
             if (newBook.getAmount() < amount) {
                 orderDao.delete(NewOrder);
@@ -81,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String addByTime(Timestamp start, Timestamp end, String username) {
         int id = userDao.findByUsername(username).get(0).getId();
-        List<Order> orders = orderDao.findByTime(start, end, id);
+        List<Order> orders = orderDao.findByTimeAndUser(start, end, id);
         double money = 0;
         int amount  =0;
         for (int i = 0; i < orders.size(); i++) {
@@ -91,10 +92,22 @@ public class OrderServiceImpl implements OrderService {
                 amount += orderItems.get(j).getAmount();
             }
         }
+
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("money",money);
         jsonObject.put("amount",amount);
 
         return jsonObject.toJSONString();
+    }
+
+    @Override
+    public String getBookSaleAmount(Timestamp start, Timestamp end, int bookId) {
+        List<OrderItem> orderItems = orderItemDao.findByTimeAndBook(start,end,bookId);
+        int amount =0;
+        for(int i=0;i<orderItems.size();i++){
+            amount +=orderItems.get(i).getAmount();
+        }
+
+        return JSON.toJSONString(amount);
     }
 }

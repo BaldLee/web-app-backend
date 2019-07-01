@@ -30,12 +30,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> findByOwner(int userid){
-        return orderRepository.findByOwner(userid);
+    public List<Order> findByOwner(int userId){
+        return orderRepository.findByOwner(userId);
     }
 
     @Override
-    public List<Order> findByTime(Timestamp start,Timestamp end,int owner){
+    public List<Order> findByTimeAndUser(Timestamp start,Timestamp end,int owner){
         return orderRepository.findByTime(start, end, owner);
     }
 }
