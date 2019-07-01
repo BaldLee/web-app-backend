@@ -49,7 +49,7 @@ public class OrderController {
         JSONObject jsonObject = JSON.parseObject(json);
         Timestamp start = new Timestamp(Long.parseLong(jsonObject.getString("start")));
         Timestamp end = new Timestamp(Long.parseLong(jsonObject.getString("end")));
-        int bookId = Integer.parseInt(jsonObject.getString("bookId)"));
+        int bookId = Integer.parseInt(jsonObject.getString("bookId"));
         return orderService.getBookSaleAmount(start, end, bookId);
     }
 }
